@@ -1,0 +1,7 @@
+# Advent Of Code 2021
+[Advent Of Code](https://adventofcode.com/2021/about) is *"an Advent calendar of small programming puzzles"*.
+
+| Day | Task 1 | Task 2 | Task 1 Tests | Task 2 Tests | Input |
+|:---:|:------:|:------:|:------------:|:------------:|:-----:|
+| [1](https://adventofcode.com/2021/day/1) | [Task 1](/AdventOfCode2021/Day01Task1.cs) | [Task 2](/AdventOfCode2021/Day01Task2.cs) | [Task 1 Tests](/AdventOfCode2021.Tests/Day01Task1Tests.cs) | [Task 2 Tests](/AdventOfCode2021.Tests/Day01Task2Tests.cs) | [Input](/AdventOfCode2021.Tests/Files/Day01.txt) |
+| [2](https://adventofcode.com/2021/day/2) | [Task 1](/AdventOfCode2021/Day02Task1.cs) | [Task 2](/AdventOfCode2021/Day02Task2.cs) | [Task 1 Tests](/AdventOfCode2021.Tests/Day02Task1Tests.cs) | [Task 2 Tests](/AdventOfCode2021.Tests/Day02Task2Tests.cs) | [Input](/AdventOfCode2021.Tests/Files/Day02.txt) |
