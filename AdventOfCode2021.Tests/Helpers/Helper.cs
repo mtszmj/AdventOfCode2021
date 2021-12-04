@@ -9,6 +9,11 @@ namespace AdventOfCode2021.Tests.Helpers
 {
     public static class Helper
     {
+        public static string ReadFile(int day)
+        {
+            return File.ReadAllText($"Files\\Day{day:D2}.txt");
+        }
+
         public static string[] ReadLinesAsString(int day)
         {
             return File.ReadAllLines($"Files\\Day{day:D2}.txt").ToArray();
