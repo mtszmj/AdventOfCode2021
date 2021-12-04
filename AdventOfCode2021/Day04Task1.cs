@@ -8,15 +8,21 @@ namespace AdventOfCode2021
 {
     public class Day04Task1
     {
-        public Bingo ParseInput(string text)
+        public virtual Bingo ParseInput(string text)
+        {
+            var (numbers, boards) = ParseInputData(text);
+            var bingo = new Bingo(numbers,boards);
+            return bingo;
+        }
+
+        protected static (int[] numbers, List<Board> boards) ParseInputData(string text)
         {
             var lines = text.Split(Environment.NewLine, StringSplitOptions.TrimEntries);
-
+            var numbers = lines[0].Split(',').Select(x => int.Parse(x)).ToArray();
             var row = 0;
             int[,] boardValues = new int[Board.BoardSize, Board.BoardSize];
-            List<Board> boards = new List<Board>();
-            
-            foreach(var line in lines.Skip(1))
+            var boards = new List<Board>();
+            foreach (var line in lines.Skip(1))
             {
                 if (string.IsNullOrEmpty(line))
                 {
@@ -30,20 +36,14 @@ namespace AdventOfCode2021
                     boardValues[row, col++] = el;
                 }
                 row++;
-                if(row == Board.BoardSize)
+                if (row == Board.BoardSize)
                 {
                     boards.Add(new Board(boardValues));
                     boardValues = new int[Board.BoardSize, Board.BoardSize];
                 }
             }
 
-
-            var bingo = new Bingo(
-                lines[0].Split(',').Select(x => int.Parse(x)),
-                boards
-            );
-
-            return bingo;
+            return (numbers, boards);
         }
 
         public class Bingo
@@ -57,7 +57,7 @@ namespace AdventOfCode2021
             public int[] Numbers { get; set; }
             public Board[] Boards { get; set; }
 
-            public long Play()
+            public virtual long Play()
             {
                 foreach(var number in Numbers)
                 {
