@@ -1,45 +1,43 @@
-﻿namespace AdventOfCode2021
+﻿namespace AdventOfCode2021;
+public class Day04Task2 : Day04Task1
 {
-    public class Day04Task2 : Day04Task1
+    public override Bingo ParseInput(string text)
     {
-        public override Bingo ParseInput(string text)
+        var (numbers, boards) = ParseInputData(text);
+        var bingo = new Bingo2(numbers, boards);
+        return bingo;
+    }
+
+    public class Bingo2 : Bingo
+    {
+        public Bingo2(IEnumerable<int> numbers, IEnumerable<Board> boards) : base(numbers, boards)
         {
-            var (numbers, boards) = ParseInputData(text);
-            var bingo = new Bingo2(numbers, boards);
-            return bingo;
         }
 
-        public class Bingo2 : Bingo
+        public override long Play()
         {
-            public Bingo2(IEnumerable<int> numbers, IEnumerable<Board> boards) : base(numbers, boards)
-            {
-            }
+            var boardsCount = Boards.Length;
+            var boards = Boards.ToList();
 
-            public override long Play()
+            foreach(var number in Numbers)
             {
-                var boardsCount = Boards.Length;
-                var boards = Boards.ToList();
-
-                foreach(var number in Numbers)
+                for (int i = 0; i < boardsCount; i++)
                 {
-                    for (int i = 0; i < boardsCount; i++)
+                    Board? board = boards[i];
+                    if (board.MarkValue(number))
                     {
-                        Board? board = boards[i];
-                        if (board.MarkValue(number))
+                        boards.Remove(board);
+                        boardsCount--;
+                        i--;
+                        if(boardsCount == 0)
                         {
-                            boards.Remove(board);
-                            boardsCount--;
-                            i--;
-                            if(boardsCount == 0)
-                            {
-                                return CountWinningResult(board, number);
-                            }
+                            return CountWinningResult(board, number);
                         }
                     }
                 }
-
-                return 0;
             }
+
+            return 0;
         }
     }
 }

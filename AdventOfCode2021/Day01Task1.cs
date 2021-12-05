@@ -1,27 +1,24 @@
-﻿namespace AdventOfCode2021
-
+﻿namespace AdventOfCode2021;
+public class Day01Task1
 {
-    public class Day01Task1
+    public int GetDepthMeasurementIncreasesCount(int[] input)
     {
-        public int GetDepthMeasurementIncreasesCount(int[] input)
+        int? previous = null;
+        var increases = 0;
+        for (var i = 0; i < input.Length; i++)
         {
-            int? previous = null;
-            var increases = 0;
-            for (var i = 0; i < input.Length; i++)
+            if (!previous.HasValue)
             {
-                if (!previous.HasValue)
-                {
-                    previous = input[i];
-                    continue;
-                }
-
-                if (input[i] > previous.Value)
-                    increases++;
-
                 previous = input[i];
+                continue;
             }
 
-            return increases;
+            if (input[i] > previous.Value)
+                increases++;
+
+            previous = input[i];
         }
+
+        return increases;
     }
 }
