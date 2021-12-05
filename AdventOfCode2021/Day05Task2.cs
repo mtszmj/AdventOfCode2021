@@ -21,10 +21,7 @@ namespace AdventOfCode2021
                 foreach (var coord in coords)
                 {
                     if (IsNotDiagonal(coord))
-                    {
-                        //Console.WriteLine($"{coord.x1},{coord.y1} -> {coord.x2},{coord.y2} NOT USED");
                         continue;
-                    }
 
                     var diff = Math.Abs(coord.x1 - coord.x2);
                     var xAdd = (coord.x2 - coord.x1) > 0 ? 1 : -1;
@@ -34,24 +31,12 @@ namespace AdventOfCode2021
                     {
                         var x = coord.x1 + iX * xAdd;
                         var y = coord.y1 + iY * yAdd;
-                        if (Diagram.ContainsKey((x, y)))
-                        {
-                            Diagram[(x, y)]++;
-                            MaxX(x);
-                            MaxY(y);
-                        }
-                        else
-                        {
-                            Diagram[(x, y)] = 1;
-                            MaxX(x);
-                            MaxY(y);
-                        }
+                        
+                        Diagram[(x, y)] = Diagram.GetValueOrDefault((x, y), 0) + 1;
+                        MaxX(x);
+                        MaxY(y);
                     }
-
-                    //Console.WriteLine($"{coord.x1},{coord.y1} -> {coord.x2},{coord.y2}");
-                    //Console.WriteLine(Print());
                 }
-                //Console.WriteLine(Print());
 
             }
 

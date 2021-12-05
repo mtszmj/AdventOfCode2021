@@ -35,7 +35,6 @@ namespace AdventOfCode2021
             {
                 foreach (var coord in coords)
                 {
-                    // check if neither vertical nor horizontal
                     if (IsNotHorizontalNorVertival(coord))
                         continue;
 
@@ -44,18 +43,9 @@ namespace AdventOfCode2021
                     for (var x = xl; x <= xh; x++)
                         for (var y = yl; y <= yh; y++)
                         {
-                            if (Diagram.ContainsKey((x, y)))
-                            {
-                                Diagram[(x, y)]++;
-                                MaxX(x);
-                                MaxY(y);
-                            }
-                            else
-                            {
-                                Diagram[(x, y)] = 1;
-                                MaxX(x);
-                                MaxY(y);
-                            }
+                            Diagram[(x, y)] = Diagram.GetValueOrDefault((x, y), 0) + 1;
+                            MaxX(x);
+                            MaxY(y);
                         }
                 }
             }
