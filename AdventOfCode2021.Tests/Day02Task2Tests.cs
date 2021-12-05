@@ -1,9 +1,4 @@
-﻿using AdventOfCode2021.Tests.Helpers;
-using FluentAssertions;
-using NUnit.Framework;
-using System;
-
-namespace AdventOfCode2021.Tests
+﻿namespace AdventOfCode2021.Tests
 {
     internal class Day02Task2Tests
     {

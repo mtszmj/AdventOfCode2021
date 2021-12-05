@@ -1,4 +1,5 @@
 ﻿namespace AdventOfCode2021
+
 {
     public class Day01Task1
     {

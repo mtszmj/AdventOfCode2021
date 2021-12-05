@@ -1,8 +1,3 @@
-using FluentAssertions;
-using NUnit.Framework;
-using System.IO;
-using System.Linq;
-
 namespace AdventOfCode2021.Tests
 {
     public class Day01Task2Tests

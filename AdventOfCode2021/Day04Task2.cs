@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static AdventOfCode2021.Day04Task1;
-
-namespace AdventOfCode2021
+﻿namespace AdventOfCode2021
 {
     public class Day04Task2 : Day04Task1
     {
