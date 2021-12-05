@@ -9,7 +9,7 @@ namespace AdventOfCode2021
     public class Day05Task1
     {
         private static string[] Separators =new [] {",", " -> " };
-        public OceanFloor ParseInput(string[] lines)
+        public virtual OceanFloor ParseInput(string[] lines)
         {
             return new OceanFloor(lines.Select(SplitValues).ToArray());
         }
@@ -27,7 +27,7 @@ namespace AdventOfCode2021
 
         public class OceanFloor
         {
-            private Dictionary<(int x, int y), int> Diagram = new Dictionary<(int x, int y), int>();
+            protected Dictionary<(int x, int y), int> Diagram = new Dictionary<(int x, int y), int>();
             private int maxX;
             private int maxY;
 
@@ -36,7 +36,7 @@ namespace AdventOfCode2021
                 foreach (var coord in coords)
                 {
                     // check if neither vertical nor horizontal
-                    if (coord.x1 != coord.x2 && coord.y1 != coord.y2)
+                    if (IsNotHorizontalNorVertival(coord))
                         continue;
 
                     var (xl, xh) = coord.x1 <= coord.x2 ? (coord.x1, coord.x2) : (coord.x2, coord.x1);
@@ -60,12 +60,17 @@ namespace AdventOfCode2021
                 }
             }
 
-            private void MaxX(int value)
+            protected bool IsNotHorizontalNorVertival((int x1, int y1, int x2, int y2) coord)
+            {
+                return coord.x1 != coord.x2 && coord.y1 != coord.y2;
+            }
+
+            protected void MaxX(int value)
             {
                 if (maxX < value)
                     maxX = value;
             }
-            private void MaxY(int value)
+            protected void MaxY(int value)
             {
                 if (maxY < value)
                     maxY = value;
