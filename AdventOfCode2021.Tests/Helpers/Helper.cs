@@ -21,7 +21,12 @@ namespace AdventOfCode2021.Tests.Helpers
 
         public static int[] ReadLinesAsInt(int day)
         {
-            return File.ReadAllLines($"Files\\Day{day:D2}.txt").Select(x => int.Parse(x)).ToArray();
+            return File.ReadAllLines($"Files\\Day{day:D2}.txt").Select(int.Parse).ToArray();
+        }
+
+        public static int[] ReadFileAsIntSplitBy(int day, string splitter, StringSplitOptions options = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+        {
+            return File.ReadAllText($"Files\\Day{day:D2}.txt").Split(splitter, options).Select(int.Parse).ToArray();
         }
 
     }
