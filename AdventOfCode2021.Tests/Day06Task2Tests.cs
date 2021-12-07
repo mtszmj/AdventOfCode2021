@@ -13,12 +13,12 @@ internal class Day06Task2Tests
     }
 
     [Test]
-    public void returns_361169()
+    public void returns_1634946868992()
     {
         var input = Helper.ReadFile(6).Split(',').Select(int.Parse);
 
         var result = new Day06Task2().HowMuchIsTheFish(input, 256);
 
-        result.Should().Be(361169);
+        result.Should().Be(1634946868992);
     }
 }
