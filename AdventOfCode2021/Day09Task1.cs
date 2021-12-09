@@ -16,13 +16,17 @@ public class Day09Task1
     public IEnumerable<Point> FindLowPoints(string[] lines)
     {
         var points = ParseInput(lines);
+        return FindLowPoints(points);
+    }
 
+    protected IEnumerable<Point> FindLowPoints(Point[,] points)
+    {
         var maxRow = points.GetLength(0) - 1;
         var maxColumn = points.GetLength(1) - 1;
         for (var row = 0; row <= maxRow; row++)
-            for(var col = 0; col <= maxColumn; col++)
+            for (var col = 0; col <= maxColumn; col++)
             {
-                if(
+                if (
                     (row == 0 || (points[row, col].Height < points[row - 1, col].Height))
                     && (col == 0 || (points[row, col].Height < points[row, col - 1].Height))
                     && (row == maxRow || (points[row, col].Height < points[row + 1, col].Height))
