@@ -10,7 +10,7 @@ public class Day12Task1
 
     public IEnumerable<Path> Traverse(Graph graph)
     {
-        var path = new Path(graph.Nodes["start"]);
+        var path = CreatePath(graph.Nodes["start"]);
         var paths = new Queue<Path>();
         paths.Enqueue(path);
 
@@ -21,13 +21,15 @@ public class Day12Task1
             foreach (var n in lastNode.GetConnectedNodes())
             {
                 if(n.Name == "end")
-                    yield return new Path(current, n);
+                    yield return CreatePath(current, n);
                 else if (current.CanVisit(n))
-                    paths.Enqueue(new Path(current, n));
+                    paths.Enqueue(CreatePath(current, n));
             }
         }
     }
 
+    protected virtual Path CreatePath(Node node) => new Path(node);
+    protected virtual Path CreatePath(Path path, Node node) => new Path(path, node);
 
     public class Path
     {
@@ -46,11 +48,11 @@ public class Day12Task1
             Visited[node] = Visited.GetValueOrDefault(node, 0) + 1;
         }
 
-        Dictionary<Node, int> Visited { get; }
+        protected Dictionary<Node, int> Visited { get; }
         public List<Node> Nodes { get; }
 
 
-        public bool CanVisit(Node node)
+        public virtual bool CanVisit(Node node)
         {
             return !Visited.ContainsKey(node) || Visited[node] < node.MaxVisits;
         }
