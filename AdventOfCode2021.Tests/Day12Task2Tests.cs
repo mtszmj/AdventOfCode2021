@@ -1,5 +1,12 @@
-﻿namespace AdventOfCode2021.Tests;
-internal class Day12Task2Tests
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Validators;
+
+namespace AdventOfCode2021.Tests;
+
+[MemoryDiagnoser]
+public class Day12Task2Tests
 {
     public const string Example = @"start-A
 start-b
@@ -93,6 +100,7 @@ start-RW";
         result.Count.Should().Be(paths);
     }
 
+    [Benchmark]
     [Test]
     public void solves_task()
     {
@@ -100,4 +108,13 @@ start-RW";
         result.Count.Should().Be(136767);
     }
 
+    [Test]
+    public void benchmark()
+    {
+        var config = new ManualConfig();
+        config.AddValidator(JitOptimizationsValidator.DontFailOnError);
+        config.AddLogger(DefaultConfig.Instance.GetLoggers().ToArray()); // manual config has no loggers by default
+        config.AddColumnProvider(DefaultConfig.Instance.GetColumnProviders().ToArray()); // manual config has no columns by default
+        BenchmarkRunner.Run<Day12Task2Tests>(config);
+    }
 }
