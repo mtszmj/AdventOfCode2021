@@ -29,7 +29,7 @@ public class Day13Task1
         return paper;
     } 
 
-    public int Solve(string input)
+    public virtual int Solve(string input)
     {
         var paper = Parse(input.Split(Environment.NewLine));
         paper.Fold();
@@ -80,7 +80,6 @@ public class Day13Task1
         public int CountDots()
         {
             return Points.Count();
-            //return (xRange.MaxX - xRange.MinX) * (yRange.MaxY - yRange.MinY) - Points.Count;
         }
 
         public void AddPoint(int x, int y)
