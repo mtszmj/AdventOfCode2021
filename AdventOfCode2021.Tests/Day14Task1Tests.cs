@@ -25,14 +25,14 @@ CN -> C";
     [Test]
     public void solves_example()
     {
-        var result = Solver().Solve(Example);
+        var result = Solver().Solve(Example, 10);
         result.Should().Be(1588);
     }
 
     [Test]
     public void solves_task()
     {
-        var result = Solver().Solve(Helper.ReadFile(Day));
-        result.Should().Be(0);
+        var result = Solver().Solve(Helper.ReadFile(Day), 10);
+        result.Should().Be(3058);
     }
 }

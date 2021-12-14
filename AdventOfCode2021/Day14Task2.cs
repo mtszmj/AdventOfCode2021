@@ -1,8 +1,6 @@
 ﻿namespace AdventOfCode2021;
-public class Day14Task2
+
+// no need to change Task1 
+public class Day14Task2 : Day14Task1
 {
-    public int Solve(string input)
-    {
-        return -1;
-    }
 }

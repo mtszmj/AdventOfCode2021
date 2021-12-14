@@ -1,8 +1,9 @@
 ﻿namespace AdventOfCode2021;
 public class Day14Task1
 {
-    public long Solve(string input)
+    public long Solve(string input, int iterations)
     {
+        // parse
         var parts = input.Split($"{Environment.NewLine}{Environment.NewLine}");
         var text = parts[0];
         var rules = parts[1].Split(Environment.NewLine).Select(x => x.Split(" -> ")).ToDictionary(x => x[0], x => x[1]);
@@ -12,7 +13,8 @@ public class Day14Task1
         for (var i = 0; i < text.Length - 1; i++)
             pairs[text[i..(i + 2)]] = pairs.GetValueOrDefault(text[i..(i + 2)]) + 1;
 
-        for (var i = 0; i < 10; i++)
+        // perform iterations
+        for (var i = 0; i < iterations; i++)
         {
             var newPairs = new Dictionary<string, long>();
             foreach (var pair in pairs)
