@@ -25,6 +25,6 @@ internal class Day15Task1Tests
     public void solves_task()
     {
         var result = Solver().Solve(Helper.ReadFile(Day));
-        result.Should().Be(0);
+        result.Should().Be(403);
     }
 }
