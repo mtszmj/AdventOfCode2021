@@ -111,10 +111,12 @@ start-RW";
     [Test]
     public void benchmark()
     {
+#if RELEASE
         var config = new ManualConfig();
         config.AddValidator(JitOptimizationsValidator.DontFailOnError);
         config.AddLogger(DefaultConfig.Instance.GetLoggers().ToArray()); // manual config has no loggers by default
         config.AddColumnProvider(DefaultConfig.Instance.GetColumnProviders().ToArray()); // manual config has no columns by default
         BenchmarkRunner.Run<Day12Task2Tests>(config);
+#endif
     }
 }
