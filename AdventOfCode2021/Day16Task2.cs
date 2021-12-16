@@ -35,30 +35,6 @@ public class Day16Task2 : Day16Task1
         }
 
         return main.Value;
-        //while (queue.Any())
-        //{
-        //    var cmd = queue.Pop();
-        //    if(long.TryParse(cmd, out var value))
-        //        values.Add(value);
-        //    else
-        //    {
-        //        var result = cmd switch
-        //        {
-        //            "+" => values.Sum(),
-        //            "*" => values.Aggregate(1L, (a, v) => a * v),
-        //            "min" => values.Min(),
-        //            "max" => values.Max(),
-        //            ">" => values.First() > values.Skip(1).First() ? 1 : 0,
-        //            "<" => values.First() < values.Skip(1).First() ? 1 : 0,
-        //            "==" => values.First() < values.Skip(1).First() ? 1 : 0,
-        //            _ => throw new InvalidOperationException()
-        //        };
-        //        values.Clear();
-        //        queue.Push(result.ToString());
-        //    }
-        //}
-
-        //return values.First();
     }
 
     public static IOperation ToOperation(string op)
