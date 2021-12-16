@@ -34,7 +34,7 @@ public class Day16Task1
             end = 6 + index * 5;
             var value = sb.ToString().ToDecimalValue();
             operations.Enqueue(value.ToString());
-            Console.WriteLine($"{span} [V{version}][P{packet}][Val{value}][End{end}]");
+            // Console.WriteLine($"{span} [V{version}][P{packet}][Val{value}][End{end}]");
 
             return version;
         }
@@ -57,17 +57,17 @@ public class Day16Task1
             var length = span[7..(7 + 15)].ToDecimalValue();
             var subpackets = span[(7 + 15)..(7 + 15 + (int)length)];
 
-            Console.WriteLine($"{span} [V{version}][P{packet}][Len{length}]");
+            // Console.WriteLine($"{span} [V{version}][P{packet}][Len{length}]");
             operations.Enqueue("(");
             var from = 0;
             while (from < subpackets.Length)
             {
-                Console.WriteLine($"{subpackets} [From{from}]");
+                // Console.WriteLine($"{subpackets} [From{from}]");
                 version += SumVersions(subpackets[from..], out end, operations);
                 from += end;
             }
             end = from + 22;
-            Console.WriteLine($"{subpackets} [End{end}]");
+            // Console.WriteLine($"{subpackets} [End{end}]");
             operations.Enqueue(")");
         }
 
@@ -76,16 +76,16 @@ public class Day16Task1
             var numOfSubpackets = span[7..(7 + 11)].ToDecimalValue();
             var subpackets = span[(7+11)..];
             var from = 0;
-            Console.WriteLine($"{span} [V{version}][P{packet}][Num{numOfSubpackets}]");
+            // Console.WriteLine($"{span} [V{version}][P{packet}][Num{numOfSubpackets}]");
             operations.Enqueue("(");
             for (var i = 0; i < numOfSubpackets; i++)
             {
-                Console.WriteLine($"{subpackets} [From{from}]");
+                // Console.WriteLine($"{subpackets} [From{from}]");
                 version += SumVersions(subpackets[from..], out end, operations);
                 from += end;
             }
             end = from + 18;
-            Console.WriteLine($"{subpackets} [End{end}]");
+            // Console.WriteLine($"{subpackets} [End{end}]");
             operations.Enqueue(")");
         }
 
