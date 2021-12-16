@@ -4,7 +4,7 @@ public class Day16Task1
     public long Solve(string input)
     {
         var bin = ToBinary(input);
-        return SumVersions(bin, out var end);
+        return SumVersions(bin, out var end, new());
     }
 
     public string ToBinary(string hex)
@@ -13,7 +13,7 @@ public class Day16Task1
         return string.Join("", x.Select(v => Convert.ToString(v, 2).PadLeft(8, '0')));
     }
 
-    public long SumVersions(ReadOnlySpan<char> span, out int end)
+    public long SumVersions(ReadOnlySpan<char> span, out int end, Queue<string> operations)
     {
         end = 0;
         var version = span[..3].ToDecimalValue();
@@ -33,11 +33,23 @@ public class Day16Task1
             }
             end = 6 + index * 5;
             var value = sb.ToString().ToDecimalValue();
-
+            operations.Enqueue(value.ToString());
             Console.WriteLine($"{span} [V{version}][P{packet}][Val{value}][End{end}]");
 
             return version;
         }
+
+        operations.Enqueue(packet switch
+        {
+            0 => "+",
+            1 => "*",
+            2 => "min",
+            3 => "max",
+            5 => ">",
+            6 => "<",
+            7 => "==",
+            _ => "error"
+        });
 
         var lengthType = span[6] == '1';
         if (!lengthType)
@@ -46,16 +58,17 @@ public class Day16Task1
             var subpackets = span[(7 + 15)..(7 + 15 + (int)length)];
 
             Console.WriteLine($"{span} [V{version}][P{packet}][Len{length}]");
-
+            operations.Enqueue("(");
             var from = 0;
             while (from < subpackets.Length)
             {
                 Console.WriteLine($"{subpackets} [From{from}]");
-                version += SumVersions(subpackets[from..], out end);
+                version += SumVersions(subpackets[from..], out end, operations);
                 from += end;
             }
             end = from + 22;
             Console.WriteLine($"{subpackets} [End{end}]");
+            operations.Enqueue(")");
         }
 
         else
@@ -64,14 +77,16 @@ public class Day16Task1
             var subpackets = span[(7+11)..];
             var from = 0;
             Console.WriteLine($"{span} [V{version}][P{packet}][Num{numOfSubpackets}]");
+            operations.Enqueue("(");
             for (var i = 0; i < numOfSubpackets; i++)
             {
                 Console.WriteLine($"{subpackets} [From{from}]");
-                version += SumVersions(subpackets[from..], out end);
+                version += SumVersions(subpackets[from..], out end, operations);
                 from += end;
             }
             end = from + 18;
             Console.WriteLine($"{subpackets} [End{end}]");
+            operations.Enqueue(")");
         }
 
         return version;

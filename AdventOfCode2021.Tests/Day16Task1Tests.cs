@@ -18,7 +18,7 @@ internal class Day16Task1Tests
     [TestCase("11101110000000001101010000001100100000100011000001100000", 14)]
     public void get_vesions_sum(string bin, int versions)
     {
-        Solver().SumVersions(bin, out var end).Should().Be(versions);
+        Solver().SumVersions(bin, out var end, new()).Should().Be(versions);
     }
 
 
