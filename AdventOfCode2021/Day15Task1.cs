@@ -35,8 +35,8 @@ public class Day15Task1
 
     private static void ValueRiskInEachDirectionAndMove(Field[,] fields)
     {
-        var queue = new Queue<(int row, int col)>();
-        queue.Enqueue((0, 0));
+        var queue = new PriorityQueue<(int row, int col), long>();
+        queue.Enqueue((0, 0), 0);
         var maxRow = fields.GetLength(0);
         var maxCol = fields.GetLength(1);
         do
@@ -47,27 +47,27 @@ public class Day15Task1
                 && (field.Sum + fields[current.row - 1, current.col].Value < fields[current.row - 1, current.col].Sum))
             {
                 fields[current.row - 1, current.col].Sum = field.Sum + fields[current.row - 1, current.col].Value;
-                queue.Enqueue((current.row - 1, current.col));
+                queue.Enqueue((current.row - 1, current.col), fields[current.row - 1, current.col].Sum);
             }
             if (current.row + 1 < maxRow
                 && (field.Sum + fields[current.row + 1, current.col].Value < fields[current.row + 1, current.col].Sum))
             {
                 fields[current.row + 1, current.col].Sum = field.Sum + fields[current.row + 1, current.col].Value;
-                queue.Enqueue((current.row + 1, current.col));
+                queue.Enqueue((current.row + 1, current.col), fields[current.row + 1, current.col].Sum);
             }
             if (current.col - 1 > 0
                 && (field.Sum + fields[current.row, current.col - 1].Value < fields[current.row, current.col - 1].Sum))
             {
                 fields[current.row, current.col - 1].Sum = field.Sum + fields[current.row, current.col - 1].Value;
-                queue.Enqueue((current.row, current.col - 1));
+                queue.Enqueue((current.row, current.col - 1), fields[current.row, current.col - 1].Sum);
             }
             if (current.col + 1 < maxCol
                 && (field.Sum + fields[current.row, current.col + 1].Value < fields[current.row, current.col + 1].Sum))
             {
                 fields[current.row, current.col + 1].Sum = field.Sum + fields[current.row, current.col + 1].Value;
-                queue.Enqueue((current.row, current.col + 1));
+                queue.Enqueue((current.row, current.col + 1), fields[current.row, current.col + 1].Sum);
             }
         }
-        while (queue.Any());
+        while (queue.Count > 0);
     }
 }
