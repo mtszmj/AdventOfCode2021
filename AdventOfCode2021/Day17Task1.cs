@@ -3,10 +3,11 @@
 namespace AdventOfCode2021;
 public class Day17Task1
 {
-    public int Solve(string input)
+    public virtual int Solve(string input)
     {
         var target = Parse(input);
-        var xSteps = GetMaxSteps(FindXs(target.x1, target.x2));
+        var validXs = FindXs(target.x1, target.x2);
+        var xSteps = GetMaxSteps(validXs);
         var y = FindY(target.y1, target.y2, xSteps.steps);
         return MaxHeight(xSteps.x, y, target.x1, target.x2, target.y1, target.y2);
     }
