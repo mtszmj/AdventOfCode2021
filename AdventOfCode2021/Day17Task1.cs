@@ -5,7 +5,10 @@ public class Day17Task1
 {
     public int Solve(string input)
     {
-        return -1;
+        var target = Parse(input);
+        var xSteps = GetMaxSteps(FindXs(target.x1, target.x2));
+        var y = FindY(target.y1, target.y2, xSteps.steps);
+        return MaxHeight(xSteps.x, y, target.x1, target.x2, target.y1, target.y2);
     }
 
     public (int x1, int x2, int y1, int y2) Parse(string input)
@@ -35,13 +38,54 @@ public class Day17Task1
                 add += add > 0 ? -1 : add < 0 ? 1 : 0;
                 step++;
                 if (posX >= x1 && posX <= x2)
-                    results[x] = step; // keep highest step count, the more steps the higher y can get
+                    results[x] = add != 0 ? step : int.MaxValue; // keep highest step count, the more steps the higher y can get
             }
         }
 
         return results;
     }
 
+    // The more steps there are the higher Y can get
+    public (int x, int steps) GetMaxSteps(Dictionary<int, int> xAndSteps)
+    {
+        return xAndSteps.OrderByDescending(x => x.Value).ThenBy(x => x.Key).Select(x => (x.Key, x.Value)).First();
+    }
+
+    public int FindY(int y1, int y2, int steps)
+    {
+        // we shoot up the way the parabole is back at (x,0),
+        // the highest value is when we go to minimum value of y the next step 
+        //        _
+        //       / \
+        // (0,0)/   \
+        //           |
+        //          T|T
+        if (steps == int.MaxValue) 
+        {
+            return Math.Abs(y1 + 1);
+        }
+
+        throw new NotImplementedException();
+    }
+
+    public int MaxHeight(int x, int y, int x1, int x2, int y1, int y2)
+    {
+        var target = false;
+        var posX = 0;
+        var posY = 0;
+        var maxY = int.MinValue;
+        while(posY > y1 && posX < x2)
+        {
+            posX += x;
+            x += x > 0 ? -1 : x < 0 ? 1 : 0;
+            posY += y--;
+            maxY = posY > maxY ? posY: maxY;
+            if (posX >= x1 && posX <= x2 && posY >= y1 && posY <= y2)
+                target = true;
+        }
+
+        return target ? maxY : throw new InvalidOperationException();
+    }
 
 
 
