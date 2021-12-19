@@ -17,6 +17,7 @@ public class Day18Task1
         Pair? SearchExplode();
         Value? SearchLeftValue(IElement explodePair, HashSet<IElement> visited);
         Value? SearchRightValue(IElement explodePair, HashSet<IElement> visited);
+        IElement DeepCopy();
     }
 
     public class Pair : IElement
@@ -246,6 +247,19 @@ public class Day18Task1
         {
             return 3 * Left.Magnitude() + 2 * Right.Magnitude();
         }
+
+        public IElement DeepCopy()
+        {
+            var pair = new Pair()
+            {
+                Level = Level,
+                Left = Left.DeepCopy(),
+                Right = Right.DeepCopy(),
+            };
+            pair.Left.Parent = pair;
+            pair.Right.Parent = pair;
+            return pair;
+        }
     }
 
     public class Value : IElement
@@ -265,6 +279,15 @@ public class Day18Task1
         public (int count, int maxLevel) Count()
         {
             return (1, Level);
+        }
+
+        public IElement DeepCopy()
+        {
+            return new Value()
+            {
+                Number = Number,
+                Level = Level
+            };
         }
 
         public long Magnitude()
@@ -349,7 +372,7 @@ public class Day18Task1
         return result;
     }
 
-    public long Solve(string input)
+    public virtual long Solve(string input)
     {
         var pairs = input.Split(Environment.NewLine).Select(x => Parse(x)).ToArray();
         var result = SumsMany(pairs);
