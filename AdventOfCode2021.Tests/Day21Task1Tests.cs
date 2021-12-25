@@ -17,6 +17,6 @@ Player 2 starting position: 8";
     public void solves_task()
     {
         var result = Solver().Solve(Helper.ReadFile(Day));
-        result.Should().Be(0);
+        result.Should().Be(925605);
     }
 }
